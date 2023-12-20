@@ -1,0 +1,46 @@
+* {
+    
+}
+
+body {
+    margin: 0;
+}
+
+.page-header {
+    text-align: center;
+}
+
+.page-header h3{
+    font-size: 25px;
+}
+
+.score h3{
+    display: inline;
+    margin: 100px;
+}
+
+.game-table {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    margin: 100px auto;
+    width: 300px;
+    
+}
+
+.boxes {
+    font-size: 50px;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid black;
+    height: 100px;
+}
+
+
+
+.clicked {
+    background-color: lightgray;
+}
+
+.winColor {
+    background-color: yellow;
+}
