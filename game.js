@@ -4,9 +4,10 @@ let numberOfGames = 1;
 let counterX = 0;
 let counterO = 0;
 let playerTurn = 0;
-// const arrWin = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
 let dataArrX = [];
 let dataArrO = [];
+let newArray =[];
+const arrWin = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
 
 
 //DOM elements 
@@ -35,22 +36,23 @@ function handleClick(event){
         box.style.color='blue';
         box.classList.add('clicked');
         dataArrX.push(Number(box.dataset.num));
+        console.log(dataArrX)
         
         // for(let i = 0; i<arrWin.length; i++){
         //     if (checkWinCondition(dataArrX, arrWin[i])){
-                if (checkWinNum(dataArrX)){
+                if (checkWinNum(arrWin, dataArrX)){
                 // dataArrX = arrWin[i];
-                message.textContent = `player X won`;
+                message.textContent = `player X win`;
                 counterX = counterX + 1;
                 scoreX.textContent = counterX;
 
                 for (let box of boxesElem){
                     box.disabled = true;
-                    // for (let numbers of dataArrX){
-                    //     if(Number(box.dataset.num) === numbers){
-                    //         box.classList.add('winColor');
-                    //     }
-                    // }
+                    for (let numbers of dataArrX){
+                        if(Number(box.dataset.num) === numbers){
+                            box.classList.add('winColor');
+                        }
+                    }
                 }
                 setTimeout(reset,1000);
         }  
@@ -68,19 +70,19 @@ function handleClick(event){
         // for(let i = 0; i<arrWin.length; i++){
         //     if (checkWinCondition(dataArrO, arrWin[i])){
                 
-                if (checkWinNum(dataArrO)){
+                if (checkWinNum(arrWin, dataArrO)){
                 // dataArrO = arrWin[i];
-                message.textContent = `player O won`;
+                message.textContent = `player O win`;
                 counterO = counterO + 1;
                 scoreO.textContent = counterO;
 
                 for (let box of boxesElem){
                     box.disabled = true;
-                    // for (let numbers of dataArrO){
-                    //     if(Number(box.dataset.num) === numbers){
-                    //         box.classList.add('winColor');
-                    //     }
-                    // }
+                    for (let numbers of dataArrO){
+                        if(Number(box.dataset.num) === numbers){
+                            box.classList.add('winColor');
+                        }
+                    }
                 }
                 setTimeout(reset,1000);
             }
@@ -97,26 +99,58 @@ function handleClick(event){
 
 //other functions 
 
+function checkWinNum(array1, array2){
+    for (let i=0; i<array1.length; i++){
+        for(let j=0; j<array1[i].length; j++){
+            if(array2.includes(array1[i][j])&&
+                array2.includes(array1[i][j+1])&&
+                array2.includes(array1[i][j+2])){
+                    newArray.push([array1[i][j],array1[i][j+1],array1[i][j+2]]);
+                    array2 = newArray;
+                    newArray = [];
+                    console.log(array2);
+                    return true;
+                }
+        }
+    }
+}
+
+
+function reset(){
+    dataArrX = [];
+    dataArrO = [];
+    // newArray =[];
+    numberOfGames++;
+    numOfGames.textContent = numberOfGames;
+    for (let box of boxesElem){
+        box.textContent = "";
+        box.disabled = false;
+        box.classList.remove('clicked');  
+        box.classList.remove('winColor');
+    }
+}
+
+
 // function checkWinCondition(array1, array2) {
 //   return array2.every(function(element) {
 //     return array1.includes(element);
 //   })
 // }
 
-function checkWinNum(array){
-    if(array.includes(1) && array.includes(2) && array.includes(3)||
-        array.includes(4) && array.includes(5) && array.includes(6)||
-        array.includes(7) && array.includes(8) && array.includes(9)||
-        array.includes(1) && array.includes(4) && array.includes(7)||
-        array.includes(2) && array.includes(5) && array.includes(8)||
-        array.includes(3) && array.includes(6) && array.includes(9)||
-        array.includes(1) && array.includes(5) && array.includes(9)||
-        array.includes(3) && array.includes(5) && array.includes(7)){
-            return true;
-        }else{
-            return false;
-        }
-}
+// function checkWinNum(array){
+//     if(array.includes(1) && array.includes(2) && array.includes(3)||
+//         array.includes(4) && array.includes(5) && array.includes(6)||
+//         array.includes(7) && array.includes(8) && array.includes(9)||
+//         array.includes(1) && array.includes(4) && array.includes(7)||
+//         array.includes(2) && array.includes(5) && array.includes(8)||
+//         array.includes(3) && array.includes(6) && array.includes(9)||
+//         array.includes(1) && array.includes(5) && array.includes(9)||
+//         array.includes(3) && array.includes(5) && array.includes(7)){
+//             return true;
+//         }else{
+//             return false;
+//         }
+// }
 
 // function checkWinNum(array1, array2){
 //     for(let i=0; i<array1.length; i++){
@@ -129,18 +163,8 @@ function checkWinNum(array){
 // const isSubset = (array1, array2) =>
 //   array2.every((element) => array1.includes(element));
 
-function reset(){
-        dataArrX = [];
-        dataArrO = [];
-        numberOfGames++;
-        numOfGames.textContent = numberOfGames;
-    for (let box of boxesElem){
-        box.textContent = "";
-        box.disabled = false;
-        box.classList.remove('clicked');  
-        // box.classList.remove('winColor');
-    }
-}
+
+
 
 
 
