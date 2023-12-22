@@ -25,14 +25,6 @@ The hardest part for me was definitely checking the combinations of the winning 
 - google-fonts 
 - animations from animate.style
 
-## Bugs to fix 
-
-As far as I know there are two bugs in this game I'm still trying to solve. And I believe I'm nearly there!
-
--   When a player wins, it's supposed to change the background colors of the 3 win cells only. But if you click in more than 3 cells until get the 3 win cells, you'll see that all of the cells that have been clicked by the player will have the background color changed.
-
--   There is an issue in my draw condition also. If the player gets the 3 win cells only when clicking on the last cell available, it is both a draw and the player wins. I tried to add if the win condition is false into the draw condition but it did't work. 
-
 ## Lessons learnt
 
 Tring to write the code by myself first before asking for help. It's harder but you realize that you're more capable than you think. 
