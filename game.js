@@ -29,7 +29,6 @@ for (let box of boxesElem){
 }
 
 function handleClick(event){
-    console.log(numOfGames);
     let box = event.target;
     box.disabled = true;
     
@@ -42,16 +41,20 @@ function handleClick(event){
         dataArrX.push(Number(box.dataset.num));
         
         if (checkWinNum(arrWin, dataArrX)){
-            message.textContent = `X wins`;
+            // console.log('new array' + newArray);
+            // dataArrX = newArray;
+            // console.log('data X array' + dataArrX);
+            message.textContent = `X won`;
             counterX = counterX + 1;
             scoreX.textContent = counterX;
             for (let box of boxesElem){
                 box.disabled = true;
                 for (let numbers of dataArrX){
+                    // console.log('for' + dataArrX);
                     if(Number(box.dataset.num) === numbers){
-                        console.log('hi');
+                        // console.log('if' + numbers);
                         box.classList.add('win-color');
-                    }
+                    } 
                 }
             }
             setTimeout(reset,1000);
@@ -67,7 +70,7 @@ function handleClick(event){
         dataArrO.push(Number(box.dataset.num));
         
         if (checkWinNum(arrWin, dataArrO)){
-            message.textContent = `O wins`;
+            message.textContent = `O won`;
             counterO = counterO + 1;
             scoreO.textContent = counterO;
 
@@ -88,7 +91,7 @@ function handleClick(event){
 
     if (document.querySelectorAll('.clicked').length === boxesElem.length){
         message.textContent = `It's a draw`;
-        setTimeout(reset,1000);
+        setTimeout(reset,1500);
     }
 }
 
@@ -101,7 +104,7 @@ function checkWinNum(array1, array2){
                 array2.includes(array1[i][j+1])&&
                 array2.includes(array1[i][j+2])){
                     newArray.push([array1[i][j],array1[i][j+1],array1[i][j+2]]);
-                    array2 = newArray;
+                    // array2 = newArray;
                     return true;
             }
         }
