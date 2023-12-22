@@ -41,24 +41,15 @@ function handleClick(event){
         dataArrX.push(Number(box.dataset.num));
         
         if (checkWinNum(arrWin, dataArrX)){
-            // console.log('new array' + newArray);
-            // dataArrX = newArray;
-            // console.log('data X array' + dataArrX);
             message.textContent = `X won`;
             counterX = counterX + 1;
             scoreX.textContent = counterX;
-            for (let box of boxesElem){
-                box.disabled = true;
-                for (let numbers of dataArrX){
-                    // console.log('for' + dataArrX);
-                    if(Number(box.dataset.num) === numbers){
-                        // console.log('if' + numbers);
-                        box.classList.add('win-color');
-                    } 
-                }
-            }
+            changeBgDisableBtn();
             setTimeout(reset,1000);
-        }  
+
+        }else if(document.querySelectorAll('.clicked').length === boxesElem.length){
+            isADraw();
+        }
         playerTurn++;
         
     }else if(playerTurn === 1){
@@ -73,25 +64,13 @@ function handleClick(event){
             message.textContent = `O won`;
             counterO = counterO + 1;
             scoreO.textContent = counterO;
-
-            for (let box of boxesElem){
-                box.disabled = true;
-                for (let numbers of dataArrO){
-                    if(Number(box.dataset.num) === numbers){
-                        box.classList.add('win-color');
-                    }
-                }
-            }
+            changeBgDisableBtn();
             setTimeout(reset,1000);
+
+        }else if (document.querySelectorAll('.clicked').length === boxesElem.length){
+            isADraw();
         }
         playerTurn--;
-    }
-
-    // draw 
-
-    if (document.querySelectorAll('.clicked').length === boxesElem.length){
-        message.textContent = `It's a draw`;
-        setTimeout(reset,1500);
     }
 }
 
@@ -103,13 +82,31 @@ function checkWinNum(array1, array2){
             if(array2.includes(array1[i][j])&&
                 array2.includes(array1[i][j+1])&&
                 array2.includes(array1[i][j+2])){
-                    newArray.push([array1[i][j],array1[i][j+1],array1[i][j+2]]);
-                    // array2 = newArray;
+                    newArray.push(array1[i][j],array1[i][j+1],array1[i][j+2]);
                     return true;
             }
         }
     }
 }
+
+
+function changeBgDisableBtn(){
+    for (let box of boxesElem){
+        box.disabled = true;
+        for (let numbers of newArray){
+            if(Number(box.dataset.num) === numbers){
+                box.classList.add('win-color');
+            } 
+        }
+    }
+}
+
+function isADraw() {
+    message.textContent = `It's a draw`;
+    setTimeout(reset,1000);
+}
+
+
 
 
 function reset(){
