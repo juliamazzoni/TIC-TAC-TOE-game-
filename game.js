@@ -125,7 +125,7 @@ function resetBoard(){
     resetBothCases();
     numberOfGames++;
     numOfGames.textContent = numberOfGames;
-    setTimeout(playerTurnColor(), 1000);
+    setTimeout(playerTurnColor, 1000);
 }
 
 function resetBothCases(){
