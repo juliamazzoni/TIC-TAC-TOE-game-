@@ -18,11 +18,14 @@ const scoreO = document.querySelector('.score-o');
 const message = document.querySelector('.message');
 const playerXElem = document.querySelector('.playerX');
 const playerOElem = document.querySelector('.playerO');
+const resetBtnElem = document.querySelector('.reset-btn');
 
 
 playerXElem.classList.add('player-turn');
 
 //handle functions 
+
+resetBtnElem.addEventListener('click', handleResetGame);
 
 for (let box of boxesElem){
     box.addEventListener('click', handleClick);
@@ -45,7 +48,7 @@ function handleClick(event){
             counterX = counterX + 1;
             scoreX.textContent = counterX;
             changeBgDisableBtn();
-            setTimeout(reset,1000);
+            setTimeout(resetBoard,1000);
 
         }else if(document.querySelectorAll('.clicked').length === boxesElem.length){
             isADraw();
@@ -63,9 +66,9 @@ function handleClick(event){
         if (checkWinNum(arrWin, dataArrO)){
             message.textContent = `O won`;
             counterO = counterO + 1;
-            scoreO.textContent = counterO;
+            scoreO.textContent = ' ' + counterO;
             changeBgDisableBtn();
-            setTimeout(reset,1000);
+            setTimeout(resetBoard,1000);
 
         }else if (document.querySelectorAll('.clicked').length === boxesElem.length){
             isADraw();
@@ -73,6 +76,17 @@ function handleClick(event){
         playerTurn--;
     }
 }
+
+function handleResetGame(){
+    resetBothCases();
+    playerXElem.classList.add('player-turn');
+    numberOfGames = 1;
+    numOfGames.textContent = numberOfGames;
+    counterX = 0;
+    scoreX.textContent = counterX;       
+    counterO = 0;
+    scoreO.textContent = ' ' + counterO; 
+    }
 
 //other functions 
 
@@ -89,13 +103,14 @@ function checkWinNum(array1, array2){
     }
 }
 
-
 function changeBgDisableBtn(){
     for (let box of boxesElem){
         box.disabled = true;
         for (let numbers of newArray){
             if(Number(box.dataset.num) === numbers){
                 box.classList.add('win-color');
+                box.classList.add('animate__animated');
+                box.classList.add('animate__wobble');
             } 
         }
     }
@@ -106,24 +121,27 @@ function isADraw() {
     setTimeout(reset,1000);
 }
 
+function resetBoard(){
+    resetBothCases();
+    numberOfGames++;
+    numOfGames.textContent = numberOfGames;
+    setTimeout(playerTurnColor(), 1000);
+}
 
-
-
-function reset(){
+function resetBothCases(){
     dataArrX = [];
     dataArrO = [];
     newArray =[];
-    numberOfGames++;
-    numOfGames.textContent = numberOfGames;
     message.textContent = "";
     playerXElem.classList.remove('player-turn');
     playerOElem.classList.remove('player-turn');
-    setTimeout(playerTurnColor(), 1000);
     for (let box of boxesElem){
         box.textContent = "";
         box.disabled = false;
         box.classList.remove('clicked');  
         box.classList.remove('win-color');
+        box.classList.remove('animate__animated');
+        box.classList.remove('animate__wobble');
     }
 }
 

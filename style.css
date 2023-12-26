@@ -4,16 +4,12 @@ body {
     background-color: #000;
     color: #fff;
     border-bottom: 7px solid yellow;
-}
-
-.page-header{
     text-align: center;
 }
 
 .page-header h1{
     font-size: 90px;
     font-family: 'Permanent Marker', cursive;
-    animate__shakeX
 }
 
 .page-header h3{
@@ -35,7 +31,7 @@ body {
 .game-table {
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    margin: 200px auto;
+    margin: 200px auto 160px;
     width: 600px;
     background-color: #fff;
     padding: 20px 200px;
@@ -73,3 +69,10 @@ body {
     color: yellow;
 }
 
+.reset-btn {
+    font-size: 60px;
+    font-family: 'Kalam', cursive;
+    color: #fff;
+    background-color: #000;
+    border: 0;
+}
