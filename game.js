@@ -9,6 +9,12 @@ let dataArrO = [];
 let newArray =[];
 const arrWin = [[1,2,3],[4,5,6],[7,8,9],[1,4,7],[2,5,8],[3,6,9],[1,5,9],[3,5,7]];
 
+//audios
+
+const audio1 = new Audio("./audio/421464__jaszunio15__click_50.wav");
+const audio2 = new Audio("./audio/270141__theriavirra__drumsticks-stagg-maple-so5an-raw-click-no2a.wav");
+const audio3 = new Audio("./audio/232861__f4ngy__cheering.wav");
+
 //DOM elements 
 
 const boxesElem = document.querySelectorAll('.boxes');
@@ -25,7 +31,7 @@ playerXElem.classList.add('player-turn');
 
 //handle functions 
 
-resetBtnElem.addEventListener('click', handleResetGame);
+resetBtnElem.addEventListener('click', handleResetPage);
 
 for (let box of boxesElem){
     box.addEventListener('click', handleClick);
@@ -39,16 +45,18 @@ function handleClick(event){
         playerOElem.classList.add('player-turn');
         playerXElem.classList.remove('player-turn');
         box.textContent = "X";
+        audio1.play();
         box.style.color='white';
         box.classList.add('clicked');
         dataArrX.push(Number(box.dataset.num));
         
         if (checkWinNum(arrWin, dataArrX)){
             message.textContent = `X won`;
+            audio3.play();
             counterX = counterX + 1;
             scoreX.textContent = counterX;
             changeBgDisableBtn();
-            setTimeout(resetBoard,1000);
+            setTimeout(resetGame,1000);
 
         }else if(document.querySelectorAll('.clicked').length === boxesElem.length){
             isADraw();
@@ -59,16 +67,18 @@ function handleClick(event){
         playerXElem.classList.add('player-turn');
         playerOElem.classList.remove('player-turn');
         box.textContent = "O";
+        audio2.play();
         box.style.color='yellow';
         box.classList.add('clicked');
         dataArrO.push(Number(box.dataset.num));
         
         if (checkWinNum(arrWin, dataArrO)){
             message.textContent = `O won`;
+            audio3.play();
             counterO = counterO + 1;
             scoreO.textContent = ' ' + counterO;
             changeBgDisableBtn();
-            setTimeout(resetBoard,1000);
+            setTimeout(resetGame,1000);
 
         }else if (document.querySelectorAll('.clicked').length === boxesElem.length){
             isADraw();
@@ -77,8 +87,9 @@ function handleClick(event){
     }
 }
 
-function handleResetGame(){
-    resetBothCases();
+function handleResetPage(){
+    cleanBoard();
+    playerTurn = 0;
     playerXElem.classList.add('player-turn');
     numberOfGames = 1;
     numOfGames.textContent = numberOfGames;
@@ -118,17 +129,17 @@ function changeBgDisableBtn(){
 
 function isADraw() {
     message.textContent = `It's a draw`;
-    setTimeout(reset,1000);
+    setTimeout(resetGame,1000);
 }
 
-function resetBoard(){
-    resetBothCases();
+function resetGame(){
+    cleanBoard();
     numberOfGames++;
     numOfGames.textContent = numberOfGames;
     setTimeout(playerTurnColor, 1000);
 }
 
-function resetBothCases(){
+function cleanBoard(){
     dataArrX = [];
     dataArrO = [];
     newArray =[];

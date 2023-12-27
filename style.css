@@ -93,3 +93,64 @@ body {
     background-color: #000;
     border: 0;
 }
+
+
+@media only screen 
+    and (device-width : 414px) 
+    and (device-height : 896px) 
+    and (-webkit-device-pixel-ratio : 2) {
+
+    body {
+        margin: 0;
+        padding: 0 0 25px 0;
+        border-bottom: 2px solid yellow;
+        }
+
+    .page-header h1{
+        font-size: 20px;
+     }
+
+    .page-header h3{
+        font-size: 17px;
+        margin: 5px;
+    }
+
+    .score {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1px;
+        width: 100%;
+        border-bottom: 2px solid yellow;
+        padding-bottom: 15px;
+     }
+
+     .score h3{
+        margin: 0;
+        font-size: 15px;
+    }
+
+    .game-table {
+        grid-template-columns: repeat(3,1fr);
+        margin: 30px auto 40px;
+        gap: 3px;
+        width: 210px;
+    }
+
+    .boxes {
+        font-size: 30px;
+        padding: 10px;
+        height: 70px;
+    }
+
+    .message {
+        margin: 10px;
+        margin-bottom: 2px;
+        height: 25px;
+        font-size: 25px;
+    }
+
+    .reset-btn {
+        font-size: 20px;
+    }
+
+}
